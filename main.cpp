@@ -41,14 +41,26 @@ If you need inspiration for what to write, take a look at previously approved st
 /*
  UDT 1:
  */
+struct Oscilliscope
+{
+
+};
 
 /*
  UDT 2:
  */
+ struct Lasagne
+ {
+
+ };
 
 /*
  UDT 3:
  */
+ struct FMSynth
+ {
+
+ };
 
 /*
  new UDT 4:
