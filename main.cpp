@@ -41,34 +41,253 @@ If you need inspiration for what to write, take a look at previously approved st
 /*
  UDT 1:
  */
-struct Oscilliscope
+#include <iostream>
+#include <string>
+
+using namespace std;
+ 
+struct Raccoon
+{
+    struct RaccoonState
+    {
+        RaccoonState(float adrenaline_, bool cleanPaws_, double weight_) :
+        adrenaline_(adrenaline),
+        cleanPaws_(cleanPaws),
+        weight_(weight),
+        hungry(true),
+        crazyEyes(false)
+        {
+            cout << "construct RaccoonState" << endl;
+        }
+
+        ~RaccoonState() 
+        {
+            cout << "destroy RaccoonState" << endl;
+        }
+
+        void setHungryState();
+        void setExcitement();
+
+        float adrenaline;
+        bool cleanPaws;
+        double weight;
+        bool hungry;
+        bool crazyEyes;
+    };
+
+    RaccoonState raccoonState;
+
+    Raccoon();
+    ~Raccoon();
+
+    double discover(bool trash);
+
+    bool rummage();
+
+    int climbDownChimney();
+
+    void eat();
+
+    bool miracle {false};
+    bool trash {false};
+    bool food;
+    int shinyThings;
+    bool nightTime;
+};
+
+Raccoon::Raccoon() :
+food(true),
+shinyThings(5),
+nightTime(true)
+{
+    cout << "construct Raccoon" << endl;
+}
+
+Raccoon::~Raccoon()
+{
+    cout << "destroy Raccoon" << endl;
+}
+
+double Raccoon::discover(bool trash)
 {
 
-};
+}
+
+bool Raccoon::rummage()
+{
+
+}
+
+int Raccoon::climbDownChimney()
+{
+
+}
+
+void Raccoon::eat()
+{
+
+}
 
 /*
  UDT 2:
  */
- struct Lasagne
+ struct PastaShop
  {
+    struct Shape
+    {
+        string fettucini;
+        string linguini;
+        string customShape;
+        bool whitePasta;
+        bool greenPasta;
+    };
 
+    PastaShop() {}
+    ~PastaShop() {}
+
+    double amountOfDough;
+    double amountOfFlower;
+    int typeOfCut;
+    bool tomatoSauce;
+    double temperature;
+
+    void makePasta();
+    double restockDoughRefrigerator();
+    void sellGoods();
  };
+
+void PastaShop::makePasta()
+{
+
+}
+
+double PastaShop::restockDoughRefrigerator()
+{
+
+}
+
+void PastaShop::sellGoods()
+{
+
+}
 
 /*
  UDT 3:
  */
- struct FMSynth
+ struct TeaParty
  {
+    TeaParty() {}
+    ~TeaParty() {}
+
+    int numberOfCups;
+    int participants;
+    bool tooMuchTea;
+    bool biscuits;
+    bool rain;
+
+    void serve();    
+    bool drink();
+    void spill();
+    bool decideToCancel();
 
  };
+
+void TeaParty::serve()
+{
+
+}   
+
+bool TeaParty::drink()
+{
+
+}
+
+void TeaParty::spill()
+{
+
+}
+
+bool TeaParty::decideToCancel()
+{
+
+}
 
 /*
  new UDT 4:
  */
 
+ struct PastaShopNewHire
+ {
+    PastaShopNewHire(){}
+    ~PastaShopNewHire(){}
+
+    PastaShop pastaShop;
+    Raccoon raccoon;
+
+    int traditionalNoodlesMade;
+    int customShapesDesigned;
+    int noodlesOnTheFloor;
+    bool dedicated;
+    int moneyMade;
+
+    void sellNoodles();
+    int packNoodles();
+    int output();
+
+ };
+
+void PastaShopNewHire::sellNoodles()
+{
+
+}
+
+int PastaShopNewHire::packNoodles()
+{
+
+}
+
+int PastaShopNewHire::output()
+{
+
+}
+
 /*
  new UDT 5:
  */
+
+struct TrainRide
+{
+    TrainRide(){}
+    ~TrainRide(){}
+
+    bool dayTimeTravel;
+    bool rain;
+    int loudness; 
+    double distance;
+    float trainSpeed;
+
+    double progressMade();
+    bool getExcited();
+    bool goToSleep();
+    //if crazyEyes { too much tea }
+
+    TeaParty teaParty;
+};
+
+double TrainRide::progressMade()
+{
+
+}
+
+bool TrainRide::getExcited()
+{
+
+}
+
+bool TrainRide::goToSleep()
+{
+    
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
