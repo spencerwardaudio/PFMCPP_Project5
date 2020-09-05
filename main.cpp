@@ -46,171 +46,266 @@ If you need inspiration for what to write, take a look at previously approved st
 
 using namespace std;
  
-struct Raccoon
-{
-    struct RaccoonState
-    {
-        RaccoonState(float adrenaline_, bool cleanPaws_, double weight_) :
-        adrenaline_(adrenaline),
-        cleanPaws_(cleanPaws),
-        weight_(weight),
-        hungry(true),
-        crazyEyes(false)
-        {
-            cout << "construct RaccoonState" << endl;
-        }
+// struct Raccoon
+// {
+//     struct RaccoonState
+//     {
+//         RaccoonState(float adrenaline_, bool cleanPaws_, double weight_) :
+//         adrenaline_(adrenaline),
+//         cleanPaws_(cleanPaws),
+//         weight_(weight),
+//         hungry(true),
+//         crazyEyes(false)
+//         {
+//             cout << "construct RaccoonState" << endl;
+//         }
 
-        ~RaccoonState() 
-        {
-            cout << "destroy RaccoonState" << endl;
-        }
+//         ~RaccoonState() 
+//         {
+//             cout << "destroy RaccoonState" << endl;
+//         }
 
-        void setHungryState();
-        void setExcitement();
+//         void setEyes(bool newCrazyEyes) 
+//         {
+//             crazyEyes = newCrazyEyes; 
+//         }
 
-        float adrenaline;
-        bool cleanPaws;
-        double weight;
-        bool hungry;
-        bool crazyEyes;
-    };
+//         void setAdrenaline(float newAdrenaline)
+//         {
 
-    RaccoonState raccoonState;
+//             adrenaline = newAdrenaline;
+//         }
 
-    Raccoon();
-    ~Raccoon();
+//         float adrenaline;
+//         bool cleanPaws;
+//         double weight;
+//         bool hungry;
+//         bool crazyEyes;
+//     };
 
-    double discover(bool trash);
+//     RaccoonState raccoonState;
 
-    bool rummage();
+//     Raccoon();
+//     ~Raccoon();
 
-    int climbDownChimney();
+//     double discover(bool trash);
 
-    void eat();
+//     bool rummage();
 
-    bool miracle {false};
-    bool trash {false};
-    bool food;
-    int shinyThings;
-    bool nightTime;
-};
+//     int climbDownChimney();
 
-Raccoon::Raccoon() :
-food(true),
-shinyThings(5),
-nightTime(true)
-{
-    cout << "construct Raccoon" << endl;
-}
+//     bool miracle {false};
+//     bool trash {false};
+//     bool food;
+//     int shinyThings;
+//     bool nightTime;
+// };
 
-Raccoon::~Raccoon()
-{
-    cout << "destroy Raccoon" << endl;
-}
+// Raccoon::Raccoon() :
+// food(true),
+// shinyThings(5),
+// nightTime(true)
+// {
+//     cout << "construct Raccoon" << endl;
+// }
 
-double Raccoon::discover(bool trash)
-{
+// Raccoon::~Raccoon()
+// {
+//     cout << "destroy Raccoon" << endl;
+// }
 
-}
+// double Raccoon::discover(bool trash)
+// {
+//     if (trash = true)
+//     {
+//         cout << "has seen trash" << endl;
+//         rummage();
+//     }
+// }
 
-bool Raccoon::rummage()
-{
+// bool Raccoon::rummage(bool trash)
+// {
+//     if(trash)
+//         food = false;
+// }
 
-}
+// int Raccoon::climbDownChimney()
+// {
+//     rummage();
+// }
 
-int Raccoon::climbDownChimney()
-{
-
-}
-
-void Raccoon::eat()
-{
-
-}
 
 /*
  UDT 2:
  */
+
  struct PastaShop
  {
     struct Shape
     {
-        string fettucini;
-        string linguini;
-        string customShape;
+        Shape() : 
+        whitePasta(false),
+        greenPasta(false)
+        {
+            cout << "constructing Shape" << endl;
+        }
+
+        ~Shape()
+        {
+            cout << "destructing Shape" << endl;
+        }
+
+        void pastaColor(bool, bool)
+        {
+            if (whitePasta && greenPasta)
+                cout << "white & green swirl" << endl;
+            else if(whitePasta)
+                cout << "white pasta" << endl;
+            else if(greenPasta)
+                cout << "green pasta" << endl;
+        }
+
+        string customShape(string s)
+        {
+            name = s;
+
+            return name;
+        }
+
+        enum noodleType {fettucini, linguini, rigatoni} noodle;
         bool whitePasta;
         bool greenPasta;
+        string name;
+
+
     };
 
-    PastaShop() {}
-    ~PastaShop() {}
+    Shape shape;
 
-    double amountOfDough;
-    double amountOfFlower;
-    int typeOfCut;
-    bool tomatoSauce;
-    double temperature;
+    PastaShop();
+    ~PastaShop();
 
-    void makePasta();
-    double restockDoughRefrigerator();
-    void sellGoods();
+    double makeCustomPasta(int typeOfCut, double requestedAmount);
+    double restockDough();
+    void pastaProfitTotal();
+
+    double amountOfDoughlBS;
+    double pastaProfit;
+    double pastaPrice {8.0};
+    double customRequestTotal {0.0};
+    double totalPastaWeight {0.0};
+
  };
 
-void PastaShop::makePasta()
+PastaShop::PastaShop() :
+amountOfDoughlBS(5.0),
+pastaProfit(0.0)
 {
+    cout << "construct PastaShop" << endl;
+}
+
+PastaShop::~PastaShop() 
+{
+    cout << "destruct PastaShop" << endl;
+}
+
+double PastaShop::makeCustomPasta(int newTypeOfCut, double newRequestedAmount)
+{
+    cout << "type of cut requested: " << newTypeOfCut << endl;
+    cout << "amount of requested pasta: " << newRequestedAmount << " lBs" << endl;
+
+    shape.pastaColor(true, true);
+
+    shape.customShape("pappardelle");
+
+    cout << shape.name << endl;
+
+    shape.noodle = Shape::fettucini;
+    cout << "noodle shape: " << shape.noodle << endl;
+
+    for(int i = 0; i <= newRequestedAmount; i++)
+    {
+        amountOfDoughlBS -= 1.0;
+        totalPastaWeight += 1.0;
+        cout << "total pasta sliced " << totalPastaWeight << " lBs" << endl;
+    }
+
+    restockDough();
+
+    return customRequestTotal += newRequestedAmount;
 
 }
 
-double PastaShop::restockDoughRefrigerator()
+double PastaShop::restockDough()
 {
+    if (amountOfDoughlBS > 2.0)
+    {
+        cout << "you have enough dough" << endl;
+    }
+    else 
+    {
+    cout << "not enough dough, make more!!" << endl;
 
+        for(int i = 0; i < 3; i++)
+        {
+            amountOfDoughlBS += 2.0;
+            cout << "made 2 Lbs of dough" << endl;
+            cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << endl;
+        }
+    }
+
+    return amountOfDoughlBS;
 }
 
-void PastaShop::sellGoods()
+void PastaShop::pastaProfitTotal()
 {
+    pastaProfit = customRequestTotal * pastaPrice;
 
+    cout << "profit for the hour is: $ " << pastaProfit << endl;
 }
+
 
 /*
  UDT 3:
  */
- struct TeaParty
- {
-    TeaParty() {}
-    ~TeaParty() {}
+//  struct TeaParty
+//  {
+//     TeaParty() 
+//     {
+//         cout << "construct TeaParty" << endl;
+//     }
 
-    int numberOfCups;
-    int participants;
-    bool tooMuchTea;
-    bool biscuits;
-    bool rain;
+//     ~TeaParty() 
+//     {
+//         cout << "destruct PastaShop" << endl;
+//     }
 
-    void serve();    
-    bool drink();
-    void spill();
-    bool decideToCancel();
+//     int numberOfCups;
+//     int participants;
+//     bool tooMuchTea;
+//     bool biscuits;
+//     bool rain;
 
- };
+//     void serve();    
+//     bool drink();
+//     void spill();
 
-void TeaParty::serve()
-{
+//  };
 
-}   
+// void TeaParty::serve()
+// {
 
-bool TeaParty::drink()
-{
+// }   
 
-}
+// bool TeaParty::drink()
+// {
 
-void TeaParty::spill()
-{
+// }
 
-}
+// void TeaParty::spill()
+// {
 
-bool TeaParty::decideToCancel()
-{
-
-}
+// }
 
 /*
  new UDT 4:
@@ -218,16 +313,21 @@ bool TeaParty::decideToCancel()
 
  struct PastaShopNewHire
  {
-    PastaShopNewHire(){}
-    ~PastaShopNewHire(){}
+    PastaShopNewHire()
+    {
+        cout << "construct PastaShopNewHire" << endl;
+    }
+
+    ~PastaShopNewHire()
+    {
+        cout << "destruct PastaShopNewHire" << endl;
+    }
 
     PastaShop pastaShop;
-    Raccoon raccoon;
 
     int traditionalNoodlesMade;
     int customShapesDesigned;
-    int noodlesOnTheFloor;
-    bool dedicated;
+    int noodlesOnTheFloor {0};
     int moneyMade;
 
     void sellNoodles();
@@ -255,39 +355,46 @@ int PastaShopNewHire::output()
  new UDT 5:
  */
 
-struct TrainRide
-{
-    TrainRide(){}
-    ~TrainRide(){}
+// struct TrainRide
+// {
+//     TrainRide()
+//     {
+//         cout << "construct TrainRide" << endl;
+//     }
 
-    bool dayTimeTravel;
-    bool rain;
-    int loudness; 
-    double distance;
-    float trainSpeed;
+//     ~TrainRide()
+//     {
+//         cout << "destruct TrainRide" << endl;
+//     }
 
-    double progressMade();
-    bool getExcited();
-    bool goToSleep();
-    //if crazyEyes { too much tea }
+//     bool dayTimeTravel;
+//     bool rain;
+//     int loudness; 
+//     double distance;
+//     float trainSpeed;
 
-    TeaParty teaParty;
-};
+//     double progressMade();
+//     bool getExcited();
+//     bool goToSleep();
+//     //if crazyEyes { too much tea }
 
-double TrainRide::progressMade()
-{
+//     TeaParty teaParty;
+// };
 
-}
+// double TrainRide::progressMade()
+// {
 
-bool TrainRide::getExcited()
-{
+// }
 
-}
+// bool TrainRide::getExcited()
+// {
 
-bool TrainRide::goToSleep()
-{
+// }
+
+// bool TrainRide::goToSleep()
+// {
     
-}
+// }
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -303,5 +410,12 @@ bool TrainRide::goToSleep()
 #include <iostream>
 int main()
 {
+    PastaShop pastaShop;
+
+    pastaShop.makeCustomPasta(1, 1.0);
+    pastaShop.makeCustomPasta(1, 3.0);
+    pastaShop.pastaProfitTotal();
+
+
     std::cout << "good to go!" << std::endl;
 }
