@@ -43,149 +43,164 @@ If you need inspiration for what to write, take a look at previously approved st
  */
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
- 
-// struct Raccoon
-// {
-//     struct RaccoonState
-//     {
-//         RaccoonState(float adrenaline_, bool cleanPaws_, double weight_) :
-//         adrenaline_(adrenaline),
-//         cleanPaws_(cleanPaws),
-//         weight_(weight),
-//         hungry(true),
-//         crazyEyes(false)
-//         {
-//             cout << "construct RaccoonState" << endl;
-//         }
 
-//         ~RaccoonState() 
-//         {
-//             cout << "destroy RaccoonState" << endl;
-//         }
+struct Synth
+{
+    struct UIControls
+    {
+        UIControls(int Knob_, int Button_) : Knob(Knob_), Button(Button_)
+        {
+            cout << "construct UIControls" << endl;
+        }
+        ~UIControls()
+        {
+            cout << "destruct UIControls" << endl; 
+        }
+        float setKnob(float newknobPosition);
+        bool buttonPress(bool newButtonState);
+        int updateLEDIndicator();
 
-//         void setEyes(bool newCrazyEyes) 
-//         {
-//             crazyEyes = newCrazyEyes; 
-//         }
+        int Knob;
+        float knobPosition {0.f};
+        int Button;
+        bool buttonState = false;
+        int ledGainIndicator = 0;
+        int buttonCounter = 0;
+    };
 
-//         void setAdrenaline(float newAdrenaline)
-//         {
+    UIControls uiControls{3, 4};
 
-//             adrenaline = newAdrenaline;
-//         }
+    Synth();
+    ~Synth();
 
-//         float adrenaline;
-//         bool cleanPaws;
-//         double weight;
-//         bool hungry;
-//         bool crazyEyes;
-//     };
+    int modulateBeatFrequency( int newFreq1, int newFreq2 );
+    float changeAttack(float newAttack);
+    float changeRelease(float newRelease);
+    void setGain(int newLevel);
 
-//     RaccoonState raccoonState;
+    int frequency1;
+    int frequency2;
+    int frequencyOutput;
+    int gain;
+    float attack;
+    float release;
+};
 
-//     Raccoon();
-//     ~Raccoon();
+float Synth::UIControls::setKnob(float newknobPosition)
+{
+    knobPosition = newknobPosition;
+    cout << "new knob position is " << knobPosition << endl;
+    return knobPosition;
+}
+bool Synth::UIControls::buttonPress(bool newButtonState)
+{
+    if(buttonState != newButtonState)
+    {
+        cout << "button engaged" << endl;
+        buttonState = newButtonState;
+        buttonCounter++;
+        cout << "button counter is " << buttonCounter << endl;
+    }
+    return buttonState;
+}
+int Synth::UIControls::updateLEDIndicator()
+{
+    while (ledGainIndicator != static_cast<int>(knobPosition))
+    {
+        if(ledGainIndicator < static_cast<int>(knobPosition))
+        {
+            ledGainIndicator++;
+            cout << "ledGainIndicator blinks and increments" << endl;
+        }
+        else
+        {
+            ledGainIndicator--;
+            cout << "ledGainIndicator blinks and decrements" << endl;
+        }
+    }
 
-//     double discover(bool trash);
+    cout << "ledGainIndicator is " << ledGainIndicator << endl;
 
-//     bool rummage();
+    return (ledGainIndicator);
+}
 
-//     int climbDownChimney();
+Synth::Synth() : frequency1(400), frequency2(600), gain(0), attack(0.1f), release(1.0f)
+{
+    cout << "construct Synth" << endl;
+}
+Synth::~Synth()
+{
+    cout << "destruct Synth" << endl;
+}
 
-//     bool miracle {false};
-//     bool trash {false};
-//     bool food;
-//     int shinyThings;
-//     bool nightTime;
-// };
+int Synth::modulateBeatFrequency( int newFreq1, int newFreq2 )
+{
+    frequencyOutput = std::abs(newFreq1 - newFreq2);
+    cout << "frequencyOutput is " << frequencyOutput << endl;
+    return frequencyOutput;
 
-// Raccoon::Raccoon() :
-// food(true),
-// shinyThings(5),
-// nightTime(true)
-// {
-//     cout << "construct Raccoon" << endl;
-// }
+}
+float Synth::changeAttack(float newAttack)
+{
+    attack = newAttack;
+    cout << "attack is " << attack << endl;
+    return attack;
+}
+float Synth::changeRelease(float newRelease)
+{
+    release = newRelease;
+    cout << "release is " << release << endl;
+    return release;
+}
 
-// Raccoon::~Raccoon()
-// {
-//     cout << "destroy Raccoon" << endl;
-// }
-
-// double Raccoon::discover(bool trash)
-// {
-//     if (trash = true)
-//     {
-//         cout << "has seen trash" << endl;
-//         rummage();
-//     }
-// }
-
-// bool Raccoon::rummage(bool trash)
-// {
-//     if(trash)
-//         food = false;
-// }
-
-// int Raccoon::climbDownChimney()
-// {
-//     rummage();
-// }
-
+void Synth::setGain(int newLevel)
+{
+    uiControls.buttonPress(true);
+    uiControls.setKnob(newLevel);
+    uiControls.updateLEDIndicator();
+}           
 
 /*
  UDT 2:
  */
-
  struct PastaShop
  {
-    struct Shape
+    struct Style
     {
-        Shape() : 
+        Style() : 
         whitePasta(false),
-        greenPasta(false)
+        greenPasta(false),
+        flour(1.0),
+        thicknessOfDough(1.0)
         {
-            cout << "constructing Shape" << endl;
+            cout << "constructing Style" << endl;
         }
 
-        ~Shape()
+        ~Style()
         {
-            cout << "destructing Shape" << endl;
+            cout << "destructing Style" << endl;
         }
 
-        void pastaColor(bool, bool)
-        {
-            if (whitePasta && greenPasta)
-                cout << "white & green swirl" << endl;
-            else if(whitePasta)
-                cout << "white pasta" << endl;
-            else if(greenPasta)
-                cout << "green pasta" << endl;
-        }
+        void pastaColor(bool color1, bool color2);
+        string customShape(string s);
+        double addFlour(double doughWidth);
 
-        string customShape(string s)
-        {
-            name = s;
-
-            return name;
-        }
-
-        enum noodleType {fettucini, linguini, rigatoni} noodle;
         bool whitePasta;
         bool greenPasta;
         string name;
-
-
+        double flour;
+        double thicknessOfDough;
     };
 
-    Shape shape;
+    Style style;
 
     PastaShop();
     ~PastaShop();
 
-    double makeCustomPasta(int typeOfCut, double requestedAmount);
+    double makeCustomPasta(double requestedAmount, string nameOfShape, bool color1, bool color2, double doughWidth);
     double restockDough();
     void pastaProfitTotal();
 
@@ -196,6 +211,37 @@ using namespace std;
     double totalPastaWeight {0.0};
 
  };
+
+void PastaShop::Style::pastaColor(bool color1, bool color2)
+{
+    if (color1 && color2)
+        cout << "white & green swirl" << endl;
+    else if(color1)
+        cout << "white pasta" << endl;
+    else if(color2)
+        cout << "green pasta" << endl;
+}
+
+string PastaShop::Style::customShape(string s)
+{
+    name = s;
+    return name;
+}
+
+double PastaShop::Style::addFlour(double doughWidth)
+{
+    if(doughWidth < 2.0 && doughWidth > 1.0)
+    {
+        cout << "add 1 cup flour" << endl;
+        flour = flour + 1.0;
+    }
+    else if(doughWidth > 2.0)
+    {
+        cout << "use a half cup less" << endl;
+        flour = flour - 0.5;
+    }
+    return flour;
+}
 
 PastaShop::PastaShop() :
 amountOfDoughlBS(5.0),
@@ -209,19 +255,14 @@ PastaShop::~PastaShop()
     cout << "destruct PastaShop" << endl;
 }
 
-double PastaShop::makeCustomPasta(int newTypeOfCut, double newRequestedAmount)
+double PastaShop::makeCustomPasta(double newRequestedAmount, string nameOfShape  = "default", bool color1 = true, bool color2 = true, double doughWidth = 1.0)
 {
-    cout << "type of cut requested: " << newTypeOfCut << endl;
+    style.customShape(nameOfShape);
+    cout << "pasta shape requested: " << style.name << endl;
     cout << "amount of requested pasta: " << newRequestedAmount << " lBs" << endl;
-
-    shape.pastaColor(true, true);
-
-    shape.customShape("pappardelle");
-
-    cout << shape.name << endl;
-
-    shape.noodle = Shape::fettucini;
-    cout << "noodle shape: " << shape.noodle << endl;
+    style.pastaColor(color1, color2);
+    style.addFlour(doughWidth);
+    cout << "you need " << style.flour << " cup of flour" << endl;
 
     for(int i = 0; i <= newRequestedAmount; i++)
     {
@@ -229,9 +270,7 @@ double PastaShop::makeCustomPasta(int newTypeOfCut, double newRequestedAmount)
         totalPastaWeight += 1.0;
         cout << "total pasta sliced " << totalPastaWeight << " lBs" << endl;
     }
-
     restockDough();
-
     return customRequestTotal += newRequestedAmount;
 
 }
@@ -246,21 +285,19 @@ double PastaShop::restockDough()
     {
     cout << "not enough dough, make more!!" << endl;
 
-        for(int i = 0; i < 3; i++)
-        {
-            amountOfDoughlBS += 2.0;
-            cout << "made 2 Lbs of dough" << endl;
-            cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << endl;
-        }
+    for(int i = 0; i < 3; i++)
+    {
+        amountOfDoughlBS += 2.0;
+        cout << "made 2 Lbs of dough" << endl;
+        cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << endl;
     }
-
+    }
     return amountOfDoughlBS;
 }
 
 void PastaShop::pastaProfitTotal()
 {
     pastaProfit = customRequestTotal * pastaPrice;
-
     cout << "profit for the hour is: $ " << pastaProfit << endl;
 }
 
@@ -268,49 +305,72 @@ void PastaShop::pastaProfitTotal()
 /*
  UDT 3:
  */
-//  struct TeaParty
-//  {
-//     TeaParty() 
-//     {
-//         cout << "construct TeaParty" << endl;
-//     }
+ struct TeaParty
+ {
+    TeaParty(int cupsOfTeaAvailable_) : cupsOfTeaAvailable(cupsOfTeaAvailable_)
+    {
+        cout << "construct TeaParty" << endl;
+    }
 
-//     ~TeaParty() 
-//     {
-//         cout << "destruct PastaShop" << endl;
-//     }
+    ~TeaParty() 
+    {
+        cout << "destruct TeaParty" << endl;
+    }
 
-//     int numberOfCups;
-//     int participants;
-//     bool tooMuchTea;
-//     bool biscuits;
-//     bool rain;
+    int serve(int cups);    
+    bool drink(int individuals, int cups, bool food);
+    void spill();
 
-//     void serve();    
-//     bool drink();
-//     void spill();
+    int totalNumberOfCupsServed = 0;
+    int cupsOfTeaAvailable;
+    int participants = 3;
+    bool tooMuchTea = false;
+    bool biscuits = false;
+    bool rain = false;
+ };
 
-//  };
+int TeaParty::serve(int cups)
+{
+    if(!tooMuchTea || (cupsOfTeaAvailable < 3))
+    {
+    cout << "serve " << cups << " cups of tea"<< endl;
+    totalNumberOfCupsServed = totalNumberOfCupsServed + cups;
+    cout << "total amount of tea served " << totalNumberOfCupsServed << " cups of tea"<< endl;
+    }
+    else
+        cout << "no more tea" << endl;
+    return totalNumberOfCupsServed;
+}   
 
-// void TeaParty::serve()
-// {
+bool TeaParty::drink(int individuals, int cups, bool food)
+{
+    auto amountPerIndividual = cups / individuals;
+    cout << "all of the participants have had " << amountPerIndividual << " cups of tea"<< endl;
 
-// }   
+    if(amountPerIndividual <= 2)
+        cout << "they can have more tea" << endl;
+    else
+    {
+        tooMuchTea = true;
+        cout << "too much tea" << endl;
+    }
+    if (food)
+        cout << "they should eat something" << endl;
+    return tooMuchTea;
+}
 
-// bool TeaParty::drink()
-// {
-
-// }
-
-// void TeaParty::spill()
-// {
-
-// }
+void TeaParty::spill()
+{
+    auto amountSpilled = (totalNumberOfCupsServed / participants);
+    for(int i = 0; i < amountSpilled; i++)
+    {
+        cout << " 1 cup is spilled " << endl;
+    }
+}
 
 /*
  new UDT 4:
  */
-
  struct PastaShopNewHire
  {
     PastaShopNewHire()
@@ -325,76 +385,114 @@ void PastaShop::pastaProfitTotal()
 
     PastaShop pastaShop;
 
-    int traditionalNoodlesMade;
-    int customShapesDesigned;
-    int noodlesOnTheFloor {0};
-    int moneyMade;
-
-    void sellNoodles();
-    int packNoodles();
+    void sellNoodles(int soldAmount);
+    int packNoodles(int packages_);
     int output();
 
+    int packages;
+    int customShapesDesigned;
+    int packagingPay;
+    int moneyMade;
+    double energy {1.0f};
  };
 
-void PastaShopNewHire::sellNoodles()
+void PastaShopNewHire::sellNoodles(int soldAmount)
 {
-
+    for(int i = 0; i < soldAmount; i++)
+    {
+        pastaShop.makeCustomPasta(1.3, "New Shape", true, true, 1.0);
+    }
 }
 
-int PastaShopNewHire::packNoodles()
+int PastaShopNewHire::packNoodles(int packages_)
 {
-
+    packages = packages_;
+    packagingPay = static_cast<int>(packages_ * pastaShop.pastaPrice / 3);
+    return packagingPay;
 }
 
 int PastaShopNewHire::output()
 {
+    moneyMade = pastaShop.pastaProfit + packagingPay;
 
+    for(int i = static_cast<int>(pastaShop.amountOfDoughlBS); i > 10; i--)
+    {
+       energy = energy - 0.1;
+       cout << "total energy to make pasta left " << energy << endl;
+    }
+    return moneyMade;
 }
 
 /*
  new UDT 5:
  */
+struct TrainRide
+{
+    TrainRide()
+    {
+        cout << "construct TrainRide" << endl;
+    }
 
-// struct TrainRide
-// {
-//     TrainRide()
-//     {
-//         cout << "construct TrainRide" << endl;
-//     }
+    ~TrainRide()
+    {
+        cout << "destruct TrainRide" << endl;
+    }
 
-//     ~TrainRide()
-//     {
-//         cout << "destruct TrainRide" << endl;
-//     }
+    bool awake;
+    bool rain;
+    int timeAsleep; 
+    double distanceTravelled = 0.0;
+    double trainSpeedPerHour = 30.0;
 
-//     bool dayTimeTravel;
-//     bool rain;
-//     int loudness; 
-//     double distance;
-//     float trainSpeed;
+    double progressMade(double distance_, double trainSpeed_, int time_);
+    bool wakeUp();
+    bool goToSleep();
 
-//     double progressMade();
-//     bool getExcited();
-//     bool goToSleep();
-//     //if crazyEyes { too much tea }
+    TeaParty teaParty{15};
+};
 
-//     TeaParty teaParty;
-// };
+double TrainRide::progressMade(double distance_, double trainSpeed_, int time_)
+{
+    if((distance_ > 0) && (trainSpeed_ = 0.0))
+    {
+        goToSleep();
+    }
 
-// double TrainRide::progressMade()
-// {
+    if(distance_ < (trainSpeed_ * time_))
+        cout << "will get to the destination on time " << endl;
+    else
+       cout << "will not get to the destination on time " << endl; 
 
-// }
+    distanceTravelled = distanceTravelled + distance_;
+    return distanceTravelled;
 
-// bool TrainRide::getExcited()
-// {
+}
 
-// }
+bool TrainRide::wakeUp()
+{
+    if(!awake)
+    {
+        teaParty.drink(1, 1, true);
+        cout << "wake up " << endl;
+    }
+    else if(!awake && rain)
+    {
+        teaParty.drink(1, 2, true);
+        cout << "wake up with 2 cups" << endl;
+    }
+    else
+        cout << "awake" << endl;
+    return awake = true;
+}
 
-// bool TrainRide::goToSleep()
-// {
-    
-// }
+bool TrainRide::goToSleep()
+{
+    cout << "go to sleep " << endl;
+    auto sleepMiles = timeAsleep * trainSpeedPerHour;
+    for (int i = 10; i < sleepMiles; i++)
+        cout << "slept through 10 miles " << endl;
+    return !awake;
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -410,12 +508,38 @@ int PastaShopNewHire::output()
 #include <iostream>
 int main()
 {
+    Synth synth;
+
+    synth.modulateBeatFrequency(400, 500);
+    synth.changeAttack(0.5f);
+    synth.changeRelease(0.7f);
+    synth.setGain(5);
+
     PastaShop pastaShop;
 
-    pastaShop.makeCustomPasta(1, 1.0);
-    pastaShop.makeCustomPasta(1, 3.0);
+    pastaShop.makeCustomPasta(1.3, "parapadelli", true, true, 1.0);
+    pastaShop.makeCustomPasta(3.0, "alphabet pasta", true, false, 2.0);
     pastaShop.pastaProfitTotal();
 
+    TeaParty teaParty{15};
+
+    teaParty.serve(3);
+    teaParty.serve(4);
+    teaParty.drink(2, 6, true);
+    teaParty.serve(5);
+    teaParty.spill();
+
+    PastaShopNewHire pastaShopNewHire;
+
+    pastaShopNewHire.sellNoodles(7);
+    pastaShopNewHire.packNoodles(10);
+    pastaShopNewHire.output();
+
+    TrainRide trainRide;
+
+    trainRide.progressMade(10.0, 30.0, 1);
+    trainRide.wakeUp();
+    trainRide.goToSleep();
 
     std::cout << "good to go!" << std::endl;
 }
