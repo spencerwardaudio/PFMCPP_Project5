@@ -31,7 +31,7 @@ write 3 UDTs below (where it asks for Copied UDTs) that EACH have:
         maybe print out the name of the class being destructed, or call a member function of one of the members.  be creative
  
  6) use at least 2 instances of each of your UDTs in main. 
-        add some std::cout statements in main() that use your UDT's member variables.
+        add some std::std::cout statements in main() that use your UDT's member variables.
  
  7) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
  
@@ -45,30 +45,28 @@ If you need inspiration for what to write, take a look at previously approved st
 #include <string>
 #include <cmath>
 
-using namespace std;
-
 struct Synth
 {
     struct UIControls
     {
         UIControls(int Knob_, int Button_) : Knob(Knob_), Button(Button_)
         {
-            cout << "construct UIControls" << endl;
+            std::cout << "construct UIControls" << std::endl;
         }
         ~UIControls()
         {
-            cout << "destruct UIControls" << endl; 
+            std::cout << "destruct UIControls" << std::endl; 
         }
         float setKnob(float newknobPosition);
         bool buttonPress(bool newButtonState);
         int updateLEDIndicator();
 
-        int Knob;
+        int Knob {1};
         float knobPosition {0.f};
-        int Button;
-        bool buttonState = false;
-        int ledGainIndicator = 0;
-        int buttonCounter = 0;
+        int Button {3};
+        bool buttonState {false};
+        int ledGainIndicator {0};
+        int buttonCounter {0};
     };
 
     UIControls uiControls{3, 4};
@@ -81,28 +79,29 @@ struct Synth
     float changeRelease(float newRelease);
     void setGain(int newLevel);
 
-    int frequency1;
-    int frequency2;
-    int frequencyOutput;
-    int gain;
-    float attack;
-    float release;
+    int frequency1 {400};
+    int frequency2 {500};
+    int frequencyOutput {0};
+    int gain {3};
+    float attack {0.f};
+    float release {0.f};
 };
 
 float Synth::UIControls::setKnob(float newknobPosition)
 {
     knobPosition = newknobPosition;
-    cout << "new knob position is " << knobPosition << endl;
+    std::cout << "new knob position is " << knobPosition << std::endl;
+
     return knobPosition;
 }
 bool Synth::UIControls::buttonPress(bool newButtonState)
 {
     if(buttonState != newButtonState)
     {
-        cout << "button engaged" << endl;
+        std::cout << "button engaged" << std::endl;
         buttonState = newButtonState;
         buttonCounter++;
-        cout << "button counter is " << buttonCounter << endl;
+        std::cout << "button counter is " << buttonCounter << std::endl;
     }
     return buttonState;
 }
@@ -113,46 +112,46 @@ int Synth::UIControls::updateLEDIndicator()
         if(ledGainIndicator < static_cast<int>(knobPosition))
         {
             ledGainIndicator++;
-            cout << "ledGainIndicator blinks and increments" << endl;
+            std::cout << "ledGainIndicator blinks and increments" << std::endl;
         }
         else
         {
             ledGainIndicator--;
-            cout << "ledGainIndicator blinks and decrements" << endl;
+            std::cout << "ledGainIndicator blinks and decrements" << std::endl;
         }
     }
 
-    cout << "ledGainIndicator is " << ledGainIndicator << endl;
+    std::cout << "ledGainIndicator is " << ledGainIndicator << std::endl;
 
     return (ledGainIndicator);
 }
 
 Synth::Synth() : frequency1(400), frequency2(600), gain(0), attack(0.1f), release(1.0f)
 {
-    cout << "construct Synth" << endl;
+    std::cout << "construct Synth" << std::endl;
 }
 Synth::~Synth()
 {
-    cout << "destruct Synth" << endl;
+    std::cout << "destruct Synth" << std::endl;
 }
 
 int Synth::modulateBeatFrequency( int newFreq1, int newFreq2 )
 {
     frequencyOutput = std::abs(newFreq1 - newFreq2);
-    cout << "frequencyOutput is " << frequencyOutput << endl;
+    std::cout << "frequencyOutput is " << frequencyOutput << std::endl;
     return frequencyOutput;
 
 }
 float Synth::changeAttack(float newAttack)
 {
     attack = newAttack;
-    cout << "attack is " << attack << endl;
+    std::cout << "attack is " << attack << std::endl;
     return attack;
 }
 float Synth::changeRelease(float newRelease)
 {
     release = newRelease;
-    cout << "release is " << release << endl;
+    std::cout << "release is " << release << std::endl;
     return release;
 }
 
@@ -176,23 +175,23 @@ void Synth::setGain(int newLevel)
         flour(1.0),
         thicknessOfDough(1.0)
         {
-            cout << "constructing Style" << endl;
+            std::cout << "constructing Style" << std::endl;
         }
 
         ~Style()
         {
-            cout << "destructing Style" << endl;
+            std::cout << "destructing Style" << std::endl;
         }
 
         void pastaColor(bool color1, bool color2);
-        string customShape(string s);
+        std::string customShape(std::string s);
         double addFlour(double doughWidth);
 
-        bool whitePasta;
-        bool greenPasta;
-        string name;
-        double flour;
-        double thicknessOfDough;
+        bool whitePasta {false};
+        bool greenPasta {true};
+        std::string name {};
+        double flour {0};
+        double thicknessOfDough {1.0};
     };
 
     Style style;
@@ -200,7 +199,7 @@ void Synth::setGain(int newLevel)
     PastaShop();
     ~PastaShop();
 
-    double makeCustomPasta(double requestedAmount, string nameOfShape, bool color1, bool color2, double doughWidth);
+    double makeCustomPasta(double requestedAmount, std::string nameOfShape, bool color1, bool color2, double doughWidth);
     double restockDough();
     void pastaProfitTotal();
 
@@ -215,14 +214,14 @@ void Synth::setGain(int newLevel)
 void PastaShop::Style::pastaColor(bool color1, bool color2)
 {
     if (color1 && color2)
-        cout << "white & green swirl" << endl;
+        std::cout << "white & green swirl" << std::endl;
     else if(color1)
-        cout << "white pasta" << endl;
+        std::cout << "white pasta" << std::endl;
     else if(color2)
-        cout << "green pasta" << endl;
+        std::cout << "green pasta" << std::endl;
 }
 
-string PastaShop::Style::customShape(string s)
+std::string PastaShop::Style::customShape(std::string s)
 {
     name = s;
     return name;
@@ -232,12 +231,12 @@ double PastaShop::Style::addFlour(double doughWidth)
 {
     if(doughWidth < 2.0 && doughWidth > 1.0)
     {
-        cout << "add 1 cup flour" << endl;
+        std::cout << "add 1 cup flour" << std::endl;
         flour = flour + 1.0;
     }
     else if(doughWidth > 2.0)
     {
-        cout << "use a half cup less" << endl;
+        std::cout << "use a half cup less" << std::endl;
         flour = flour - 0.5;
     }
     return flour;
@@ -247,28 +246,28 @@ PastaShop::PastaShop() :
 amountOfDoughlBS(5.0),
 pastaProfit(0.0)
 {
-    cout << "construct PastaShop" << endl;
+    std::cout << "construct PastaShop" << std::endl;
 }
 
 PastaShop::~PastaShop() 
 {
-    cout << "destruct PastaShop" << endl;
+    std::cout << "destruct PastaShop" << std::endl;
 }
 
-double PastaShop::makeCustomPasta(double newRequestedAmount, string nameOfShape  = "default", bool color1 = true, bool color2 = true, double doughWidth = 1.0)
+double PastaShop::makeCustomPasta(double newRequestedAmount, std::string nameOfShape  = "default", bool color1 = true, bool color2 = true, double doughWidth = 1.0)
 {
     style.customShape(nameOfShape);
-    cout << "pasta shape requested: " << style.name << endl;
-    cout << "amount of requested pasta: " << newRequestedAmount << " lBs" << endl;
+    std::cout << "pasta shape requested: " << style.name << std::endl;
+    std::cout << "amount of requested pasta: " << newRequestedAmount << " lBs" << std::endl;
     style.pastaColor(color1, color2);
     style.addFlour(doughWidth);
-    cout << "you need " << style.flour << " cup of flour" << endl;
+    std::cout << "you need " << style.flour << " cup of flour" << std::endl;
 
     for(int i = 0; i <= newRequestedAmount; i++)
     {
         amountOfDoughlBS -= 1.0;
         totalPastaWeight += 1.0;
-        cout << "total pasta sliced " << totalPastaWeight << " lBs" << endl;
+        std::cout << "total pasta sliced " << totalPastaWeight << " lBs" << std::endl;
     }
     restockDough();
     return customRequestTotal += newRequestedAmount;
@@ -279,17 +278,17 @@ double PastaShop::restockDough()
 {
     if (amountOfDoughlBS > 2.0)
     {
-        cout << "you have enough dough" << endl;
+        std::cout << "you have enough dough" << std::endl;
     }
     else 
     {
-    cout << "not enough dough, make more!!" << endl;
+    std::cout << "not enough dough, make more!!" << std::endl;
 
     for(int i = 0; i < 3; i++)
     {
         amountOfDoughlBS += 2.0;
-        cout << "made 2 Lbs of dough" << endl;
-        cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << endl;
+        std::cout << "made 2 Lbs of dough" << std::endl;
+        std::cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << std::endl;
     }
     }
     return amountOfDoughlBS;
@@ -298,7 +297,7 @@ double PastaShop::restockDough()
 void PastaShop::pastaProfitTotal()
 {
     pastaProfit = customRequestTotal * pastaPrice;
-    cout << "profit for the hour is: $ " << pastaProfit << endl;
+    std::cout << "profit for the hour is: $ " << pastaProfit << std::endl;
 }
 
 
@@ -309,53 +308,63 @@ void PastaShop::pastaProfitTotal()
  {
     TeaParty(int cupsOfTeaAvailable_) : cupsOfTeaAvailable(cupsOfTeaAvailable_)
     {
-        cout << "construct TeaParty" << endl;
+        std::cout << "construct TeaParty" << std::endl;
     }
 
     ~TeaParty() 
     {
-        cout << "destruct TeaParty" << endl;
+        std::cout << "destruct TeaParty" << std::endl;
     }
 
     int serve(int cups);    
     bool drink(int individuals, int cups, bool food);
     void spill();
 
-    int totalNumberOfCupsServed = 0;
-    int cupsOfTeaAvailable;
-    int participants = 3;
-    bool tooMuchTea = false;
-    bool biscuits = false;
-    bool rain = false;
+    int totalNumberOfCupsServed {0};
+    int cupsOfTeaAvailable {};
+    int participants {3};
+    bool tooMuchTea {false};
+    bool biscuits {false};
+    bool rain {false};
  };
 
 int TeaParty::serve(int cups)
 {
     if(!tooMuchTea || (cupsOfTeaAvailable < 3))
     {
-    cout << "serve " << cups << " cups of tea"<< endl;
-    totalNumberOfCupsServed = totalNumberOfCupsServed + cups;
-    cout << "total amount of tea served " << totalNumberOfCupsServed << " cups of tea"<< endl;
+        std::cout << "serve " << cups << " cups of tea"<< std::endl;
+        
+        totalNumberOfCupsServed = totalNumberOfCupsServed + cups;
+        std::cout << "total amount of tea served " << totalNumberOfCupsServed << " cups of tea"<< std::endl;
     }
     else
-        cout << "no more tea" << endl;
+    {
+        std::cout << "no more tea" << std::endl;
+    }
+
     return totalNumberOfCupsServed;
 }   
 
 bool TeaParty::drink(int individuals, int cups, bool food)
 {
     auto amountPerIndividual = cups / individuals;
-    cout << "all of the participants have had " << amountPerIndividual << " cups of tea"<< endl;
+    std::cout << "all of the participants have had " << amountPerIndividual << " cups of tea"<< std::endl;
 
     if(amountPerIndividual <= 2)
-        cout << "they can have more tea" << endl;
+    {
+        std::cout << "they can have more tea" << std::endl;
+    }
     else
     {
         tooMuchTea = true;
-        cout << "too much tea" << endl;
+        std::cout << "too much tea" << std::endl;
     }
-    if (food)
-        cout << "they should eat something" << endl;
+
+    if(food)
+    {
+        std::cout << "they should eat something" << std::endl;
+    }
+
     return tooMuchTea;
 }
 
@@ -364,7 +373,7 @@ void TeaParty::spill()
     auto amountSpilled = (totalNumberOfCupsServed / participants);
     for(int i = 0; i < amountSpilled; i++)
     {
-        cout << " 1 cup is spilled " << endl;
+        std::cout << " 1 cup is spilled " << std::endl;
     }
 }
 
@@ -375,12 +384,12 @@ void TeaParty::spill()
  {
     PastaShopNewHire()
     {
-        cout << "construct PastaShopNewHire" << endl;
+        std::cout << "construct PastaShopNewHire" << std::endl;
     }
 
     ~PastaShopNewHire()
     {
-        cout << "destruct PastaShopNewHire" << endl;
+        std::cout << "destruct PastaShopNewHire" << std::endl;
     }
 
     PastaShop pastaShop;
@@ -389,10 +398,10 @@ void TeaParty::spill()
     int packNoodles(int packages_);
     int output();
 
-    int packages;
-    int customShapesDesigned;
-    int packagingPay;
-    int moneyMade;
+    int packages {};
+    int customShapesDesigned {0};
+    int packagingPay {30};
+    int moneyMade {};
     double energy {1.0f};
  };
 
@@ -417,8 +426,8 @@ int PastaShopNewHire::output()
 
     for(int i = static_cast<int>(pastaShop.amountOfDoughlBS); i > 10; i--)
     {
-       energy = energy - 0.1;
-       cout << "total energy to make pasta left " << energy << endl;
+        energy = energy - 0.1;
+        std::cout << "total energy to make pasta left " << energy << std::endl;
     }
     return moneyMade;
 }
@@ -428,21 +437,21 @@ int PastaShopNewHire::output()
  */
 struct TrainRide
 {
-    TrainRide()
+    TrainRide(bool rain_) : rain(rain_)
     {
-        cout << "construct TrainRide" << endl;
+        std::cout << "construct TrainRide" << std::endl;
     }
 
     ~TrainRide()
     {
-        cout << "destruct TrainRide" << endl;
+        std::cout << "destruct TrainRide" << std::endl;
     }
 
-    bool awake;
-    bool rain;
-    int timeAsleep; 
-    double distanceTravelled = 0.0;
-    double trainSpeedPerHour = 30.0;
+    bool awake {false};
+    bool rain {false};
+    int timeAsleep {0}; 
+    double distanceTravelled {0.0};
+    double trainSpeedPerHour {30.0};
 
     double progressMade(double distance_, double trainSpeed_, int time_);
     bool wakeUp();
@@ -458,12 +467,11 @@ double TrainRide::progressMade(double distance_, double trainSpeed_, int time_)
         goToSleep();
     }
 
-    if(distance_ < (trainSpeed_ * time_))
-        cout << "will get to the destination on time " << endl;
-    else
-       cout << "will not get to the destination on time " << endl; 
+    if(distance_ > (trainSpeed_ * time_))
+        std::cout << "will not get to the destination on time " << std::endl;
 
     distanceTravelled = distanceTravelled + distance_;
+
     return distanceTravelled;
 
 }
@@ -473,24 +481,28 @@ bool TrainRide::wakeUp()
     if(!awake)
     {
         teaParty.drink(1, 1, true);
-        cout << "wake up " << endl;
+        std::cout << "wake up " << std::endl;
     }
-    else if(!awake && rain)
+    else if(!awake && !rain)
     {
         teaParty.drink(1, 2, true);
-        cout << "wake up with 2 cups" << endl;
+        std::cout << "wake up with 2 cups" << std::endl;
     }
-    else
-        cout << "awake" << endl;
-    return awake = true;
+
+    std::cout << "awake" << std::endl;
+    awake = true;
+
+    return awake;
 }
 
 bool TrainRide::goToSleep()
 {
-    cout << "go to sleep " << endl;
+    std::cout << "go to sleep " << std::endl;
     auto sleepMiles = timeAsleep * trainSpeedPerHour;
+
     for (int i = 10; i < sleepMiles; i++)
-        cout << "slept through 10 miles " << endl;
+        std::cout << "slept through 10 miles " << std::endl;
+
     return !awake;
 }
 
@@ -535,7 +547,7 @@ int main()
     pastaShopNewHire.packNoodles(10);
     pastaShopNewHire.output();
 
-    TrainRide trainRide;
+    TrainRide trainRide{true};
 
     trainRide.progressMade(10.0, 30.0, 1);
     trainRide.wakeUp();
