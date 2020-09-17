@@ -203,8 +203,8 @@ void Synth::setGain(int newLevel)
     double restockDough();
     void pastaProfitTotal();
 
-    double amountOfDoughlBS;
-    double pastaProfit;
+    double amountOfDoughlBS {};
+    double pastaProfit {};
     double pastaPrice {8.0};
     double customRequestTotal {0.0};
     double totalPastaWeight {0.0};
@@ -402,7 +402,7 @@ void TeaParty::spill()
     int customShapesDesigned {0};
     int packagingPay {30};
     int moneyMade {};
-    double energy {1.0f};
+    double energy {1.0};
  };
 
 void PastaShopNewHire::sellNoodles(int soldAmount)
@@ -422,7 +422,7 @@ int PastaShopNewHire::packNoodles(int packages_)
 
 int PastaShopNewHire::output()
 {
-    moneyMade = pastaShop.pastaProfit + packagingPay;
+    moneyMade = static_cast<int>(pastaShop.pastaProfit + packagingPay);
 
     for(int i = static_cast<int>(pastaShop.amountOfDoughlBS); i > 10; i--)
     {
@@ -462,7 +462,7 @@ struct TrainRide
 
 double TrainRide::progressMade(double distance_, double trainSpeed_, int time_)
 {
-    if((distance_ > 0) && (trainSpeed_ = 0.0))
+    if((distance_ > 0.0) && (trainSpeed_ == 0.0))
     {
         goToSleep();
     }
