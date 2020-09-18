@@ -31,7 +31,7 @@ write 3 UDTs below (where it asks for Copied UDTs) that EACH have:
         maybe print out the name of the class being destructed, or call a member function of one of the members.  be creative
  
  6) use at least 2 instances of each of your UDTs in main. 
-        add some std::std::cout statements in main() that use your UDT's member variables.
+        add some std::cout statements in main() that use your UDT's member variables.
  
  7) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
  
@@ -49,7 +49,7 @@ struct Synth
 {
     struct UIControls
     {
-        UIControls(int Knob_, int Button_) : Knob(Knob_), Button(Button_)
+        UIControls(int newKnob, int newButton) : knob(newKnob), button(newButton)
         {
             std::cout << "construct UIControls" << std::endl;
         }
@@ -57,13 +57,14 @@ struct Synth
         {
             std::cout << "destruct UIControls" << std::endl; 
         }
+
         float setKnob(float newknobPosition);
         bool buttonPress(bool newButtonState);
         int updateLEDIndicator();
 
-        int Knob {1};
+        int knob {1};
         float knobPosition {0.f};
-        int Button {3};
+        int button {3};
         bool buttonState {false};
         int ledGainIndicator {0};
         int buttonCounter {0};
@@ -103,6 +104,7 @@ bool Synth::UIControls::buttonPress(bool newButtonState)
         buttonCounter++;
         std::cout << "button counter is " << buttonCounter << std::endl;
     }
+
     return buttonState;
 }
 int Synth::UIControls::updateLEDIndicator()
@@ -306,7 +308,7 @@ void PastaShop::pastaProfitTotal()
  */
  struct TeaParty
  {
-    TeaParty(int cupsOfTeaAvailable_) : cupsOfTeaAvailable(cupsOfTeaAvailable_)
+    TeaParty(int cupsAvailable) : cupsOfTeaAvailable(cupsAvailable)
     {
         std::cout << "construct TeaParty" << std::endl;
     }
@@ -371,6 +373,7 @@ bool TeaParty::drink(int individuals, int cups, bool food)
 void TeaParty::spill()
 {
     auto amountSpilled = (totalNumberOfCupsServed / participants);
+
     for(int i = 0; i < amountSpilled; i++)
     {
         std::cout << " 1 cup is spilled " << std::endl;
@@ -395,7 +398,7 @@ void TeaParty::spill()
     PastaShop pastaShop;
 
     void sellNoodles(int soldAmount);
-    int packNoodles(int packages_);
+    int packNoodles(int newPackages);
     int output();
 
     int packages {};
@@ -413,10 +416,11 @@ void PastaShopNewHire::sellNoodles(int soldAmount)
     }
 }
 
-int PastaShopNewHire::packNoodles(int packages_)
+int PastaShopNewHire::packNoodles(int newPackages)
 {
-    packages = packages_;
-    packagingPay = static_cast<int>(packages_ * pastaShop.pastaPrice / 3);
+    packages = newPackages;
+    packagingPay = static_cast<int>(newPackages * pastaShop.pastaPrice / 3);
+
     return packagingPay;
 }
 
@@ -429,6 +433,7 @@ int PastaShopNewHire::output()
         energy = energy - 0.1;
         std::cout << "total energy to make pasta left " << energy << std::endl;
     }
+
     return moneyMade;
 }
 
@@ -437,7 +442,7 @@ int PastaShopNewHire::output()
  */
 struct TrainRide
 {
-    TrainRide(bool rain_) : rain(rain_)
+    TrainRide(bool rainState) : rain(rainState)
     {
         std::cout << "construct TrainRide" << std::endl;
     }
@@ -453,27 +458,26 @@ struct TrainRide
     double distanceTravelled {0.0};
     double trainSpeedPerHour {30.0};
 
-    double progressMade(double distance_, double trainSpeed_, int time_);
+    double progressMade(double newDistance, double newSpeed, int newTime);
     bool wakeUp();
     bool goToSleep();
 
     TeaParty teaParty{15};
 };
 
-double TrainRide::progressMade(double distance_, double trainSpeed_, int time_)
+double TrainRide::progressMade(double newDistance, double newSpeed, int newTime)
 {
-    if((distance_ > 0.0) && (trainSpeed_ == 0.0))
+    if((newDistance > 0.0) && (newSpeed == 0.0))
     {
         goToSleep();
     }
 
-    if(distance_ > (trainSpeed_ * time_))
+    if(newDistance > (newSpeed * newTime))
         std::cout << "will not get to the destination on time " << std::endl;
 
-    distanceTravelled = distanceTravelled + distance_;
+    distanceTravelled = distanceTravelled + newDistance;
 
     return distanceTravelled;
-
 }
 
 bool TrainRide::wakeUp()
