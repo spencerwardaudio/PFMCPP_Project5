@@ -191,7 +191,7 @@ void Synth::setGain(int newLevel)
 
         bool whitePasta {false};
         bool greenPasta {true};
-        std::string name {};
+        std::string name {"default"};
         double flour {0};
         double thicknessOfDough {1.0};
     };
@@ -205,8 +205,8 @@ void Synth::setGain(int newLevel)
     double restockDough();
     void pastaProfitTotal();
 
-    double amountOfDoughlBS {};
-    double pastaProfit {};
+    double amountOfDoughlBS {0.0};
+    double pastaProfit {0.0};
     double pastaPrice {8.0};
     double customRequestTotal {0.0};
     double totalPastaWeight {0.0};
@@ -323,7 +323,7 @@ void PastaShop::pastaProfitTotal()
     void spill();
 
     int totalNumberOfCupsServed {0};
-    int cupsOfTeaAvailable {};
+    int cupsOfTeaAvailable {10};
     int participants {3};
     bool tooMuchTea {false};
     bool biscuits {false};
@@ -401,10 +401,10 @@ void TeaParty::spill()
     int packNoodles(int newPackages);
     int output();
 
-    int packages {};
+    int packages {0};
     int customShapesDesigned {0};
     int packagingPay {30};
-    int moneyMade {};
+    int moneyMade {0};
     double energy {1.0};
  };
 
