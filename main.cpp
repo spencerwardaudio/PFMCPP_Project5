@@ -97,13 +97,14 @@ struct Synth
 
     UIControls uiControls{3, 4};
 
-    Synth();
+    Synth(); 
     ~Synth();
 
     int modulateBeatFrequency( int newFreq1, int newFreq2 );
     float changeAttack(float newAttack);
     float changeRelease(float newRelease);
     void setGain(int newLevel);
+    void freq1AttackThisFunc();
 
     int frequency1 {400};
     int frequency2 {500};
@@ -172,13 +173,13 @@ int Synth::modulateBeatFrequency( int newFreq1, int newFreq2 )
 float Synth::changeAttack(float newAttack)
 {
     attack = newAttack;
-    std::cout << "attack is " << attack << std::endl;
+    std::cout << "attack is ";
     return attack;
 }
 float Synth::changeRelease(float newRelease)
 {
     release = newRelease;
-    std::cout << "release is " << release << std::endl;
+    std::cout << "release is ";
     return release;
 }
 
@@ -187,7 +188,12 @@ void Synth::setGain(int newLevel)
     uiControls.buttonPress(true);
     uiControls.setKnob(newLevel);
     uiControls.updateLEDIndicator();
-}           
+}      
+
+void Synth::freq1AttackThisFunc()
+{
+    std::cout << "Synth changeAttack(): " << this->changeAttack(0.f) << std::endl << "and Synth Frequency1 is " << this->frequency1 << std::endl;
+}
 
 /*
  UDT 2:
@@ -229,6 +235,7 @@ void Synth::setGain(int newLevel)
     double makeCustomPasta(double requestedAmount, std::string nameOfShape, bool color1, bool color2, double doughWidth);
     double restockDough();
     void pastaProfitTotal();
+    void pastaStatThisFunc();
 
     double amountOfDoughlBS {0.0};
     double pastaProfit {0.0};
@@ -305,11 +312,11 @@ double PastaShop::restockDough()
 {
     if (amountOfDoughlBS > 2.0)
     {
-        std::cout << "you have enough dough" << std::endl;
+        std::cout << "you have enough dough ";
     }
     else 
     {
-    std::cout << "not enough dough, make more!!" << std::endl;
+    std::cout << "not enough dough, make more!!";
 
     for(int i = 0; i < 3; i++)
     {
@@ -318,6 +325,7 @@ double PastaShop::restockDough()
         std::cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << std::endl;
     }
     }
+
     return amountOfDoughlBS;
 }
 
@@ -327,6 +335,10 @@ void PastaShop::pastaProfitTotal()
     std::cout << "profit for the hour is: $ " << pastaProfit << std::endl;
 }
 
+void PastaShop::pastaStatThisFunc()
+{
+    std::cout << "PastaShop RestockDough(): " << this->restockDough() << std::endl << "and PastaShop pastaPrice is: " << pastaPrice << std::endl;
+}
 
 /*
  UDT 3:
@@ -551,36 +563,44 @@ int main()
 {
     Synth synth;
 
-    synth.modulateBeatFrequency(400, 500);
-    synth.changeAttack(0.5f);
-    synth.changeRelease(0.7f);
-    synth.setGain(5);
+    std::cout << "synth changeAttack(): " << synth.changeAttack(0.f) << std::endl << "and synth Frequency1 is " << synth.frequency1 << std::endl;
+
+    synth.freq1AttackThisFunc();
+
+    // synth.modulateBeatFrequency(400, 500);
+    // synth.changeAttack(0.5f);
+    // synth.changeRelease(0.7f);
+    // synth.setGain(5);
 
     PastaShop pastaShop;
 
-    pastaShop.makeCustomPasta(1.3, "parapadelli", true, true, 1.0);
-    pastaShop.makeCustomPasta(3.0, "alphabet pasta", true, false, 2.0);
-    pastaShop.pastaProfitTotal();
+    std::cout << "pastaShop RestockDough(): " << pastaShop.restockDough() << std::endl << "and pastaShop pastaPrice is: " << pastaShop.pastaPrice << std::endl;
 
-    TeaParty teaParty{15};
+    pastaShop.pastaStatThisFunc();
 
-    teaParty.serve(3);
-    teaParty.serve(4);
-    teaParty.drink(2, 6, true);
-    teaParty.serve(5);
-    teaParty.spill();
+    // pastaShop.makeCustomPasta(1.3, "parapadelli", true, true, 1.0);
+    // pastaShop.makeCustomPasta(3.0, "alphabet pasta", true, false, 2.0);
+    // pastaShop.pastaProfitTotal();
 
-    PastaShopNewHire pastaShopNewHire;
+    // TeaParty teaParty{15};
 
-    pastaShopNewHire.sellNoodles(7);
-    pastaShopNewHire.packNoodles(10);
-    pastaShopNewHire.output();
+    // teaParty.serve(3);
+    // teaParty.serve(4);
+    // teaParty.drink(2, 6, true);
+    // teaParty.serve(5);
+    // teaParty.spill();
 
-    TrainRide trainRide{true};
+    // PastaShopNewHire pastaShopNewHire;
 
-    trainRide.progressMade(10.0, 30.0, 1);
-    trainRide.wakeUp();
-    trainRide.goToSleep();
+    // pastaShopNewHire.sellNoodles(7);
+    // pastaShopNewHire.packNoodles(10);
+    // pastaShopNewHire.output();
+
+    // TrainRide trainRide{true};
+
+    // trainRide.progressMade(10.0, 30.0, 1);
+    // trainRide.wakeUp();
+    // trainRide.goToSleep();
 
     std::cout << "good to go!" << std::endl;
 }
