@@ -563,6 +563,8 @@ double TrainRide::progressMadeThisFunction(double newDistance, double newSpeed, 
  */
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
+
 int main()
 {
     Synth synth;
