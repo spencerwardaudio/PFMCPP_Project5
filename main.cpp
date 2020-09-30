@@ -55,6 +55,7 @@ You don't have to do this, you can keep your current object name and just change
 #include <iostream>
 #include <string>
 #include <cmath>
+#include "LeakedObjectDetector.h"
 
 struct Synth
 {
@@ -79,6 +80,8 @@ struct Synth
         bool buttonState {false};
         int ledGainIndicator {0};
         int buttonCounter {0};
+
+        JUCE_LEAK_DETECTOR(UIControls)
     };
 
     UIControls uiControls{3, 4};
@@ -98,6 +101,8 @@ struct Synth
     int gain {3};
     float attack {0.f};
     float release {0.f};
+
+    JUCE_LEAK_DETECTOR(Synth)
 };
 
 float Synth::UIControls::setKnob(float newknobPosition)
@@ -181,6 +186,26 @@ void Synth::freq1AttackThisFunc()
     std::cout << "Synth changeAttack(): " << this->changeAttack(0.f) << std::endl << "and Synth Frequency1 is " << this->frequency1 << std::endl;
 }
 
+struct SynthWrapper
+{
+    SynthWrapper ( Synth* ptr ) : pointerToSynth ( ptr ) { }
+    ~SynthWrapper()
+    {
+        delete pointerToSynth;
+    }
+    Synth* pointerToSynth = nullptr;
+};
+
+struct UIControlsWrapper
+{
+    UIControlsWrapper ( Synth::UIControls* ptr ) : pointerToUIControls ( ptr ) { }
+    ~UIControlsWrapper()
+    {
+        delete pointerToUIControls;
+    }
+    Synth::UIControls* pointerToUIControls = nullptr;
+};
+
 /*
  UDT 2:
  */
@@ -211,6 +236,8 @@ void Synth::freq1AttackThisFunc()
         std::string name {"default"};
         double flour {0};
         double thicknessOfDough {1.0};
+
+        JUCE_LEAK_DETECTOR(Style)
     };
 
     Style style;
@@ -228,6 +255,8 @@ void Synth::freq1AttackThisFunc()
     double pastaPrice {8.0};
     double customRequestTotal {0.0};
     double totalPastaWeight {0.0};
+
+    JUCE_LEAK_DETECTOR(PastaShop)
  };
 
 void PastaShop::Style::pastaColor(bool color1, bool color2)
@@ -327,6 +356,26 @@ void PastaShop::pastaStatThisFunc()
     std::cout << "PastaShop RestockDough(): " << this->restockDough() << std::endl << "and PastaShop pastaPrice is: " << pastaPrice << std::endl;
 }
 
+struct PastaShopWrapper
+{
+    PastaShopWrapper ( PastaShop* ptr) : pointerToPastaShop ( ptr ) { }
+    ~PastaShopWrapper()
+    {
+        delete pointerToPastaShop;
+    }
+    PastaShop* pointerToPastaShop = nullptr;
+};
+
+struct StyleWrapper
+{
+    StyleWrapper ( PastaShop::Style* ptr ) : pointerToStyle ( ptr ) { }
+    ~StyleWrapper()
+    {
+        delete pointerToStyle;
+    }
+    PastaShop::Style* pointerToStyle = nullptr;
+};
+
 /*
  UDT 3:
  */
@@ -353,6 +402,8 @@ void PastaShop::pastaStatThisFunc()
     bool tooMuchTea {false};
     bool biscuits {false};
     bool rain {false};
+
+    JUCE_LEAK_DETECTOR(TeaParty)
  };
 
 int TeaParty::serve(int cups)
@@ -404,6 +455,16 @@ void TeaParty::serveThisFunction()
     std::cout << "TeaParty serve(5): " << this->serve(5) << std::endl << "and TeaParty cupsOfTeaAvailable is: " << this->cupsOfTeaAvailable << std::endl;
 }
 
+struct TeaPartyWrapper
+{
+    TeaPartyWrapper ( TeaParty* ptr ) : pointerToTeaParty ( ptr ) { }
+    ~TeaPartyWrapper()
+    {
+        delete pointerToTeaParty;
+    }
+    TeaParty* pointerToTeaParty = nullptr;
+};
+
 /*
  new UDT 4:
  */
@@ -431,6 +492,8 @@ void TeaParty::serveThisFunction()
     int packagingPay {30};
     int moneyMade {0};
     double energy {1.0};
+
+    JUCE_LEAK_DETECTOR(PastaShopNewHire)
  };
 
 void PastaShopNewHire::sellNoodles(int soldAmount)
@@ -467,6 +530,16 @@ void PastaShopNewHire::outputThisFunction()
     std::cout << "PastaShopNewHire output(): " << this->output() << std::endl << "and PastaShopNewHire packages made: " << this->packages << std::endl;
 }
 
+struct PSNHWrapper
+{
+    PSNHWrapper ( PastaShopNewHire* ptr ) : pointerToPSNH ( ptr ) { }
+    ~PSNHWrapper()
+    {
+        delete pointerToPSNH;
+    }
+    PastaShopNewHire* pointerToPSNH = nullptr;
+};
+
 /*
  new UDT 5:
  */
@@ -494,6 +567,8 @@ struct TrainRide
     double trainSpeedPerHour {30.0};
 
     TeaParty teaParty;
+
+    JUCE_LEAK_DETECTOR(TeaParty)
 };
 
 double TrainRide::progressMade(double newDistance, double newSpeed, int newTime)
@@ -551,6 +626,17 @@ double TrainRide::progressMadeThisFunction(double newDistance, double newSpeed, 
     return newDistance;
 }
 
+struct TrainRideWrapper
+{
+    TrainRideWrapper ( TrainRide* ptr ) : pointerToTrainRide ( ptr ) { }
+    ~TrainRideWrapper()
+    {
+        delete pointerToTrainRide;
+    }
+    TrainRide* pointerToTrainRide = nullptr;
+};
+
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
@@ -562,34 +648,34 @@ double TrainRide::progressMadeThisFunction(double newDistance, double newSpeed, 
  Wait for my code review.
  */
 
-#include <iostream>
+
 int main()
 {
-    Synth synth;
-    PastaShop pastaShop;
-    TeaParty teaParty;
-    PastaShopNewHire pastaShopNewHire;
-    TrainRide trainRide{true};
+    SynthWrapper fmSynth ( new Synth() );
+    PastaShopWrapper pastaShop ( new PastaShop() );
+    TeaPartyWrapper teaParty ( new TeaParty() );
+    PSNHWrapper pastaShopNewHire ( new PastaShopNewHire() );
+    TrainRideWrapper trainRide ( new TrainRide(false) );
 
-    std::cout << "synth changeAttack(): " << synth.changeAttack(0.f) << std::endl << "and synth Frequency1 is " << synth.frequency1 << std::endl;
+    std::cout << "synth changeAttack(): " << fmSynth.pointerToSynth->changeAttack(0.f) << std::endl << "and synth Frequency1 is " << fmSynth.pointerToSynth->frequency1 << std::endl;
 
-    synth.freq1AttackThisFunc();
+    fmSynth.pointerToSynth->freq1AttackThisFunc();
 
-    std::cout << "pastaShop RestockDough(): " << pastaShop.restockDough() << std::endl << "and pastaShop pastaPrice is: " << pastaShop.pastaPrice << std::endl;
+    std::cout << "pastaShop RestockDough(): " << pastaShop.pointerToPastaShop->restockDough() << std::endl << "and pastaShop pastaPrice is: " << pastaShop.pointerToPastaShop->pastaPrice << std::endl;
 
-    pastaShop.pastaStatThisFunc();
+    pastaShop.pointerToPastaShop->pastaStatThisFunc();
 
-    std::cout << "teaParty serve(5): " << teaParty.serve(5) << std::endl << "and teaParty cupsOfTeaAvailable is: " << teaParty.cupsOfTeaAvailable << std::endl;
+    std::cout << "teaParty serve(5): " << teaParty.pointerToTeaParty->serve(5) << std::endl << "and teaParty cupsOfTeaAvailable is: " << teaParty.pointerToTeaParty->cupsOfTeaAvailable << std::endl;
 
-    teaParty.serveThisFunction();
+    teaParty.pointerToTeaParty->serveThisFunction();
 
-    std::cout << "pastaShopNewHire output(): " << pastaShopNewHire.output() << std::endl << "and pastaShopNewHire packages made: " << pastaShopNewHire.packages << std::endl;
+    std::cout << "pastaShopNewHire output(): " << pastaShopNewHire.pointerToPSNH->output() << std::endl << "and pastaShopNewHire packages made: " << pastaShopNewHire.pointerToPSNH->packages << std::endl;
 
-    pastaShopNewHire.outputThisFunction();
+    pastaShopNewHire.pointerToPSNH->outputThisFunction();
 
-    std::cout << "trainRide progressMade is: " << trainRide.progressMade(10.0, 35.0, 2) << std::endl << "trainRide trainSpeedPerHour is " << trainRide.trainSpeedPerHour << std::endl;
+    std::cout << "trainRide progressMade is: " << trainRide.pointerToTrainRide->progressMade(10.0, 35.0, 2) << std::endl << "trainRide trainSpeedPerHour is " << trainRide.pointerToTrainRide->trainSpeedPerHour << std::endl;
 
-    trainRide.progressMadeThisFunction(10.0, 35.0, 2);
+    trainRide.pointerToTrainRide->progressMadeThisFunction(10.0, 35.0, 2);
     
     std::cout << "good to go!" << std::endl;
 }
