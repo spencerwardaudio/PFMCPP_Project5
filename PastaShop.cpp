@@ -42,16 +42,15 @@ double PastaShop::restockDough()
     }
     else 
     {
-    std::cout << "not enough dough, make more!!";
+        std::cout << "not enough dough, make more!!";
 
-    for(int i = 0; i < 3; ++i)
-    {
-        amountOfDoughlBS += 2.0;
-        std::cout << "made 2 Lbs of dough" << std::endl;
-        std::cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << std::endl;
+        for(int i = 0; i < 3; ++i)
+        {
+            amountOfDoughlBS += 2.0;
+            std::cout << "made 2 Lbs of dough" << std::endl;
+            std::cout << "you have: " << amountOfDoughlBS << " Lbs of dough total" << std::endl;
+        }
     }
-    }
-
     return amountOfDoughlBS;
 }
 

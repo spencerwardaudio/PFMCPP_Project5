@@ -15,10 +15,9 @@ int TeaParty::serve(int cups)
 {
     if(!tooMuchTea || (cupsOfTeaAvailable < 3))
         std::cout << "serve " << cups << " cups of tea" << std::endl;
-
     else
         std::cout << "no more tea";
-
+        
     return 10;
 }   
 

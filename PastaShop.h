@@ -2,8 +2,6 @@
 #include "Style.h"
 #include "LeakedObjectDetector.h"
 
-struct Style;
-
 struct PastaShop
 {
     Style style;

@@ -33,7 +33,7 @@ std::string Style::customShape(std::string s)
 
 double Style::addFlour(double doughWidth)
 {
-    if(doughWidth < 2.0 && doughWidth > 1.0)
+    if(1.0 < doughWidth && doughWidth < 2.0)
     {
         std::cout << "add 1 cup flour" << std::endl;
         flour += 1.0;

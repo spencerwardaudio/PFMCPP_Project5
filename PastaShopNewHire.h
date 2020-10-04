@@ -2,8 +2,6 @@
 #include "PastaShop.h"
 #include "LeakedObjectDetector.h"
 
-struct PastaShop;
-
 struct PastaShopNewHire
 {
     PastaShop pastaShop;

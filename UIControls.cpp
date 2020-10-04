@@ -24,7 +24,7 @@ bool UIControls::buttonPress(bool newButtonState)
     {
         std::cout << "button engaged" << std::endl;
         buttonState = newButtonState;
-        buttonCounter++;
+        ++buttonCounter;
         std::cout << "button counter is " << buttonCounter << std::endl;
     }
 
@@ -36,12 +36,12 @@ int UIControls::updateLEDIndicator()
     {
         if(ledGainIndicator < static_cast<int>(knobPosition))
         {
-            ledGainIndicator++;
+            ++ledGainIndicator;
             std::cout << "ledGainIndicator blinks and increments" << std::endl;
         }
         else
         {
-            ledGainIndicator--;
+            --ledGainIndicator;
             std::cout << "ledGainIndicator blinks and decrements" << std::endl;
         }
     }
