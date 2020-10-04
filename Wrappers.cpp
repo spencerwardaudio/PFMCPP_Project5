@@ -1,69 +1,58 @@
-struct SynthWrapper
-{
-    SynthWrapper ( Synth* ptr ) : pointerToSynth ( ptr ) { }
-    ~SynthWrapper()
-    {
-        delete pointerToSynth;
-    }
-    Synth* pointerToSynth = nullptr;
-};
+#include "Wrappers.h"
+#include "Synth.h"
+#include "UIControls.h"
+#include "PastaShop.h"
+#include "Style.h"
+#include "TeaParty.h"
+#include "PastaShopNewHire.h"
+#include "TrainRide.h"
 
-struct UIControlsWrapper
+SynthWrapper::SynthWrapper ( Synth* ptr ) : pointerToSynth ( ptr ) { }
+    
+SynthWrapper::~SynthWrapper()
 {
-    UIControlsWrapper ( Synth::UIControls* ptr ) : pointerToUIControls ( ptr ) { }
-    ~UIControlsWrapper()
-    {
-        delete pointerToUIControls;
-    }
-    Synth::UIControls* pointerToUIControls = nullptr;
-};
+    delete pointerToSynth;
+}
 
-struct PastaShopWrapper
-{
-    PastaShopWrapper ( PastaShop* ptr) : pointerToPastaShop ( ptr ) { }
-    ~PastaShopWrapper()
-    {
-        delete pointerToPastaShop;
-    }
-    PastaShop* pointerToPastaShop = nullptr;
-};
+UIControlsWrapper::UIControlsWrapper ( UIControls* ptr ) : pointerToUIControls ( ptr ) { }
 
-struct StyleWrapper
+UIControlsWrapper::~UIControlsWrapper()
 {
-    StyleWrapper ( PastaShop::Style* ptr ) : pointerToStyle ( ptr ) { }
-    ~StyleWrapper()
-    {
-        delete pointerToStyle;
-    }
-    PastaShop::Style* pointerToStyle = nullptr;
-};
+    delete pointerToUIControls;
+}
 
-struct TeaPartyWrapper
-{
-    TeaPartyWrapper ( TeaParty* ptr ) : pointerToTeaParty ( ptr ) { }
-    ~TeaPartyWrapper()
-    {
-        delete pointerToTeaParty;
-    }
-    TeaParty* pointerToTeaParty = nullptr;
-};
+PastaShopWrapper::PastaShopWrapper ( PastaShop* ptr) : pointerToPastaShop ( ptr ) { }
 
-struct PSNHWrapper
+PastaShopWrapper::~PastaShopWrapper()
 {
-    PSNHWrapper ( PastaShopNewHire* ptr ) : pointerToPSNH ( ptr ) { }
-    ~PSNHWrapper()
-    {
-        delete pointerToPSNH;
-    }
-    PastaShopNewHire* pointerToPSNH = nullptr;
-};
+    delete pointerToPastaShop;
+}
 
-struct TrainRideWrapper
+StyleWrapper::StyleWrapper ( Style* ptr ) : pointerToStyle ( ptr ) { }
+
+StyleWrapper::~StyleWrapper()
 {
-    TrainRideWrapper ( TrainRide* ptr ) : pointerToTrainRide ( ptr ) { }
-    ~TrainRideWrapper()
-    {
-        delete pointerToTrainRide;
-    }
-    TrainRide* pointerToTrainRide = nullptr;
-};
+    delete pointerToStyle;
+}
+
+TeaPartyWrapper::TeaPartyWrapper ( TeaParty* ptr ) : pointerToTeaParty ( ptr ) { }
+
+TeaPartyWrapper::~TeaPartyWrapper()
+{
+    delete pointerToTeaParty;
+}
+
+PSNHWrapper::PSNHWrapper ( PastaShopNewHire* ptr ) : pointerToPSNH ( ptr ) { }
+
+PSNHWrapper::~PSNHWrapper()
+{
+    delete pointerToPSNH;
+}
+
+TrainRideWrapper::TrainRideWrapper ( TrainRide* ptr ) : pointerToTrainRide ( ptr ) { }
+
+TrainRideWrapper::~TrainRideWrapper()
+{
+    delete pointerToTrainRide;
+}
+

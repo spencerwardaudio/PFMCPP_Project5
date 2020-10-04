@@ -1,21 +1,15 @@
-#include <iostream>
-#include <string>
-#include <cmath>
+#pragma once
+#include "PastaShop.h"
 #include "LeakedObjectDetector.h"
+
+struct PastaShop;
 
 struct PastaShopNewHire
  {
-    PastaShopNewHire()
-    {
-        std::cout << "construct PastaShopNewHire" << std::endl;
-    }
-
-    ~PastaShopNewHire()
-    {
-        std::cout << "destruct PastaShopNewHire" << std::endl;
-    }
-
     PastaShop pastaShop;
+
+    PastaShopNewHire();
+    ~PastaShopNewHire();
 
     void sellNoodles(int soldAmount);
     int packNoodles(int newPackages);

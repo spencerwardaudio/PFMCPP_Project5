@@ -30,32 +30,6 @@
          just split it up into source files and provide the appropriate #include directives.
  */
 
-
-
-/*
- UDT 1:
- */
-
-
-/*
- UDT 2:
- */
- 
-
-/*
- UDT 3:
- */
-
-/*
- new UDT 4:
- */
- 
-
-/*
- new UDT 5:
- */
-
-
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
@@ -67,12 +41,15 @@
  Wait for my code review.
  */
 
+
+#include <iostream>
+#include "LeakedObjectDetector.h"
+#include "Wrappers.h"
 #include "Synth.h"
 #include "PastaShop.h"
-#include "PastaShopNewHire.h"
 #include "TeaParty.h"
 #include "TrainRide.h"
-#include "Wrappers.cpp"
+#include "PastaShopNewHire.h"
 
 int main()
 {

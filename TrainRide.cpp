@@ -1,4 +1,15 @@
+#include <iostream>
 #include "TrainRide.h"
+
+TrainRide::TrainRide(bool rainState) : rain(rainState)
+{
+    std::cout << "construct TrainRide" << std::endl;
+}
+
+TrainRide::~TrainRide()
+{
+    std::cout << "destruct TrainRide" << std::endl;
+}
 
 double TrainRide::progressMade(double newDistance, double newSpeed, int newTime)
 {

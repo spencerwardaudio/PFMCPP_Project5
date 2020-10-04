@@ -1,4 +1,15 @@
+#include <iostream>
 #include "PastaShopNewHire.h"
+
+PastaShopNewHire::PastaShopNewHire()
+{
+    std::cout << "construct PastaShopNewHire" << std::endl;
+}
+
+PastaShopNewHire::~PastaShopNewHire()
+{
+    std::cout << "destruct PastaShopNewHire" << std::endl;
+}
 
 void PastaShopNewHire::sellNoodles(int soldAmount)
 {

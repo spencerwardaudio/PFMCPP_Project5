@@ -1,4 +1,15 @@
+#include <iostream>
 #include "TeaParty.h"
+
+TeaParty::TeaParty()
+{
+    std::cout << "construct TeaParty" << std::endl;
+}
+
+TeaParty::~TeaParty() 
+{
+    std::cout << "destruct TeaParty" << std::endl;
+}
 
 int TeaParty::serve(int cups)
 {

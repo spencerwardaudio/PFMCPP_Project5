@@ -1,19 +1,10 @@
-#include <iostream>
-#include <string>
-#include <cmath>
+#pragma once
 #include "LeakedObjectDetector.h"
 
 struct TeaParty
  {
-    TeaParty()
-    {
-        std::cout << "construct TeaParty" << std::endl;
-    }
-
-    ~TeaParty() 
-    {
-        std::cout << "destruct TeaParty" << std::endl;
-    }
+    TeaParty();
+    ~TeaParty();
 
     int serve(int cups);    
     bool drink(int individuals, int cups, bool food);
