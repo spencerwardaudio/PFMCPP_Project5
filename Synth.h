@@ -24,3 +24,4 @@ struct Synth
 
     JUCE_LEAK_DETECTOR(Synth)
 };
+

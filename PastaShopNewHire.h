@@ -5,7 +5,7 @@
 struct PastaShop;
 
 struct PastaShopNewHire
- {
+{
     PastaShop pastaShop;
 
     PastaShopNewHire();
@@ -23,4 +23,4 @@ struct PastaShopNewHire
     double energy {1.0};
 
     JUCE_LEAK_DETECTOR(PastaShopNewHire)
- };
+};

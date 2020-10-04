@@ -2,7 +2,7 @@
 #include "LeakedObjectDetector.h"
 
 struct TeaParty
- {
+{
     TeaParty();
     ~TeaParty();
 
@@ -19,4 +19,5 @@ struct TeaParty
     bool rain {false};
 
     JUCE_LEAK_DETECTOR(TeaParty)
- };
+};
+

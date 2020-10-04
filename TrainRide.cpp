@@ -65,3 +65,5 @@ double TrainRide::progressMadeThisFunction(double newDistance, double newSpeed, 
 
     return newDistance;
 }
+
+
